@@ -1,0 +1,179 @@
+
+A组件： input
+B组件 : button
+Main组件：A+B
+
+要求：点击B组件中按钮，获取A组件中用户输入的内容
+
+分析：
+A组件中input 用户输入内容的时候，将内容存储在Main组件中。
+B组件中button点击的时候，从Main组件中读取内容。
+
+实现：
+onChange（拿到用户输入的内容，传递给Main组件）
+在Main组件中创建A组件的时候，main组件定义一个方法funcChange(result),将这个方法传递给A组件
+
+
+
+一、 state 状态
+状态都会有一个初始状态，然后用户互动，导致状态变化，从而触发重新渲染UI。
+
+1、常用方法
+getInitialState：初始化状态（可以有多个状态{state1:0,state2:1}）
+this.setState：修改状态（this.setState({state1:12})）
+this.state.状态名字：读取某一个状态对应的真实的值。(this.state.state1,this.state.state2)
+
+只要更新组件的state，然后根据state重新渲染用户界面，React来决定高效的更新DOM。
+
+练习：A、B组件通信 借助Main组件来实现的时候，数据存储为对应的状态
+A组件用户输入内容时候，我们去修改状态（setState）
+B组件用户点击按钮时候，我们去读取状态 (this.state.stateName)
+
+
+二、组件的生命周期
+
+1、生命周期的三个阶段
+Mount   已经插入到插入DOM
+Update  正在被重新渲染
+UnMount 从真实的DOM中移除
+
+
+2、生命周期的处理函数
+Mount：
+	componentWillMount() 准备插入
+	componentDidMount() 已经插入
+Update：
+	componentWillUpdate(props,state)准备更新
+	componentDidUpdate(props,state) 已经更新
+UnMount:
+	componentWillUnmount() 准备从DOM中移除
+
+练习：
+结合生命周期处理函数、state来实现：
+在组件插入到真实的DOM节点之后，启动定时器 去修改组件中div的透明度（0~1 ）
+
+style="opacity:{this.state.opacityValue}"
+==>style={{opacity:this.state.opacityValue}}
+
+如果数据绑定到视图上，希望数据的变化，也会影响视图的更新，借助状态来保存我们的数据。数据发生了变化，状态也会变化，react根据最优算法判断DOM是否要自动更新。
+
+三、事件
+React标准了事件对象，在不同的浏览器都会相同的属性。
+
+风格： handle+‘事件的名称’
+hadleClick handleChange handleMounse..
+
+React.createClass({
+	render:function(){
+		return <h1>Tets</h1>
+	}
+
+})
+
+组件中 使用的方法：
+①自定义的方法(驼峰式命名)
+	handleClick
+	handleChange
+②React自身的方法
+	getInitialState
+	render
+	componentWillMount...
+
+
+练习：实现一个组件，div，鼠标放到div，滚动滚轮改变背景色为一个随机的颜色
+
+事件 (onWheel) +state(color)
+
+步骤：
+1、创建组件 <div> Hello State</div>
+2、初始化状态
+3、指定事件以及处理函数、
+
+
+四、表单
+
+<input type='text' value='1'/>
+
+受控组件：所有状态属性更改或者ui的更改都有React来控制
+<input/><textarea/> 指定了value
+checkbox/radio 指定了checked
+select中的option制定了selected
+
+defaultValue指定默认的值，
+受控组件在实现用户输入的验证或者额外的处理会非常方便。
+
+解决方案：
+通过将状态绑定给value/checked/selected,用户操作的时候，去修改状态，状态的更新会导致ui也会跟着更新。
+
+
+实现待做事项列表：
+
+状态：数组
+add-》数组中添加1条数据
+delete-》从数组中删除指定的1行
+
+添加功能：
+①初始化状态 list
+②add按钮，读取状态，向状态所对应的数组中插入用户输入的内容。
+数组打印出来：console.log()
+③将状态中所对应的数组 展现在列表中。
+	3.1 将list状态 传递给 ToDoList，
+	3.2在ToDoList中，接收list之后，构造ToDoItem（能够显示和list数量一致的button）
+
+
+删除：
+点击delete按钮--》handleClick--》funcDelete
+
+注意事项：删除方法需要参数！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
